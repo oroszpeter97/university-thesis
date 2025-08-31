@@ -17,7 +17,7 @@ include_directories(include/glad)
 include_directories(include/KHR)
 include_directories(include/core)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/glad.c external/stb_image.h)
+add_executable(${PROJECT_NAME} src/main.cpp src/core/OpenGLContext.cpp src/external/glad.c src/external/stb_image.cpp)
 
 # Link GLFW, OpenGL, and Assimp
 target_link_libraries(university_thesis glfw OpenGL::GL)
