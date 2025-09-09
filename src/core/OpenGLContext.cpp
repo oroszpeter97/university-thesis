@@ -1,4 +1,4 @@
-#include "OpenGLContext.h"
+#include "OpenGLContext.hpp"
 #include <iostream>
 #include <stb_image.h>
 
