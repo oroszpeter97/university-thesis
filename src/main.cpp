@@ -15,14 +15,20 @@ int main() {
 
     Scene *currentScene = new TestScene();
 
+    double lastFrameTime = glfwGetTime();
+
     while (!glfwWindowShouldClose(window))
     {
+        double currentFrameTime = glfwGetTime();
+        float deltaTime = static_cast<float>(currentFrameTime - lastFrameTime);
+        lastFrameTime = currentFrameTime;
+
         glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         context.processInput(window);
 
-        currentScene->UpdateGameObjects(0.016f); // Assuming a fixed delta time for simplicity
+        currentScene->UpdateGameObjects(deltaTime);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

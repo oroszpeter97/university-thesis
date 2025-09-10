@@ -11,5 +11,5 @@ public:
     void Update(float deltaTime) override;
 
 private:
-
+    double counter = 0.0;
 };
