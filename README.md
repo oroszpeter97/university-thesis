@@ -4,7 +4,7 @@
 1. Ensure you have `cmake`, `make`, and a C++ compiler (e.g., `g++`) installed.
 2. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/me-graphics.git
+   git clone https://github.com/oroszpeter97/university-thesis.git
    cd me-graphics
    ```
 3. Create a build directory and navigate to it:
@@ -28,7 +28,7 @@
 1. Ensure you have `cmake` and a C++ compiler (e.g., Visual Studio or MinGW) installed.
 2. Clone the repository:
    ```powershell
-   git clone https://github.com/yourusername/me-graphics.git
+   git clone https://github.com/oroszpeter97/university-thesis.git
    cd me-graphics
    ```
 3. Create a build directory and navigate to it:
@@ -39,7 +39,7 @@
 4. Run `cmake` to configure the project:
    - For Visual Studio:
      ```powershell
-     cmake .. -G "Visual Studio 16 2019"
+     cmake .. -G "Visual Studio 17 2022"
      ```
    - For MinGW:
      ```powershell
