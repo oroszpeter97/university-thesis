@@ -2,7 +2,10 @@
 
 #include <core/Shader.hpp>
 
-SpriteRenderer::SpriteRenderer() : position(0.0f), size(1.0f), rotation(0.0f), shader("../shaders/default_vertex_shader.glsl", "../shaders/default_fragment_shader.glsl") {
+SpriteRenderer::SpriteRenderer(glm::vec3 position, glm::vec3 size, float rotation) : shader("../shaders/default_vertex_shader.glsl", "../shaders/default_fragment_shader.glsl") {
+    this->position = position;
+    this->size = size;
+    this->rotation = rotation;
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -103,7 +106,7 @@ void SpriteRenderer::Update(float deltaTime) {
     glm::mat4 projection    = glm::mat4(1.0f);
     // Switch to orthographic projection
     projection = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -1.0f, 100.0f);
-    view       = glm::translate(view, glm::vec3(500.0f, 0.0f, -20.0f));
+    view       = glm::translate(view, glm::vec3(0.0f, 0.0f, -20.0f));
     // pass transformation matrices to the shader
     shader.setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
     shader.setMat4("view", view);
@@ -112,7 +115,7 @@ void SpriteRenderer::Update(float deltaTime) {
     glBindVertexArray(VAO);
     glm::mat4 model = glm::mat4(1.0f);
     // Center the model and scale it up for visibility
-    model = glm::translate(model, glm::vec3(1280.0f / 2.0f, 720.0f / 2.0f, 0.0f));
+    model = glm::translate(model, position);
     model = glm::scale(model, glm::vec3(100.0f, 100.0f, 100.0f));
     model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
     shader.setMat4("model", model);
