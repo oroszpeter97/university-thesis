@@ -27,6 +27,7 @@ add_executable(${PROJECT_NAME}
     src/core/GameObject.cpp
     src/core/Scene.cpp
     src/components/Transform.cpp
+    src/components/SpriteRenderer.cpp
     src/gameobjects/Player.cpp
     src/scenes/TestScene.cpp
     src/external/glad.c

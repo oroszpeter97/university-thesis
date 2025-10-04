@@ -2,6 +2,7 @@
 
 #include <core/GameObject.hpp>
 #include <components/Transform.hpp>
+#include <components/SpriteRenderer.hpp>
 
 class Player : public GameObject {
 public:
@@ -11,5 +12,4 @@ public:
     void Update(float deltaTime) override;
 
 private:
-    double counter = 0.0;
 };
