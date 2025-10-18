@@ -5,7 +5,7 @@
 2. Clone the repository:
    ```bash
    git clone https://github.com/oroszpeter97/university-thesis.git
-   cd me-graphics
+   cd university-thesis
    ```
 3. Create a build directory and navigate to it:
    ```bash
@@ -21,7 +21,7 @@
    ```
 6. Run the executable:
    ```bash
-   ./me-graphics
+   ./university-thesis
    ```
 
 ## Windows
@@ -29,7 +29,7 @@
 2. Clone the repository:
    ```powershell
    git clone https://github.com/oroszpeter97/university-thesis.git
-   cd me-graphics
+   cd university-thesis
    ```
 3. Create a build directory and navigate to it:
    ```powershell
@@ -53,7 +53,7 @@
      ```
 6. Run the executable:
    ```powershell
-   .\me-graphics.exe
+   .\university-thesis.exe
    ```
 
 # License
