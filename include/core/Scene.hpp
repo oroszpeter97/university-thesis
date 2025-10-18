@@ -1,11 +1,15 @@
 #pragma once
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include <core/GameObject.hpp>
+#include <core/InputManager.hpp>
 #include <vector>
 
 class Scene {
 public:
-    Scene();
+    Scene(GLFWwindow* window);
     ~Scene();
 
     void AddGameObject(GameObject* gameObject);
@@ -16,4 +20,7 @@ public:
 
 private:
     std::vector<GameObject*> gameObjects;
+
+protected:
+    InputManager inputManager;
 };

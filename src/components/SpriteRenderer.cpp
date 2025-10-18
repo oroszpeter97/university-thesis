@@ -2,10 +2,7 @@
 
 #include <core/Shader.hpp>
 
-SpriteRenderer::SpriteRenderer(glm::vec3 position, glm::vec3 size, float rotation) : shader("../shaders/default_vertex_shader.glsl", "../shaders/default_fragment_shader.glsl") {
-    this->position = position;
-    this->size = size;
-    this->rotation = rotation;
+SpriteRenderer::SpriteRenderer(Transform& transform) : shader("../shaders/default_vertex_shader.glsl", "../shaders/default_fragment_shader.glsl"), transform(transform) {
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -115,9 +112,9 @@ void SpriteRenderer::Update(float deltaTime) {
     glBindVertexArray(VAO);
     glm::mat4 model = glm::mat4(1.0f);
     // Center the model and scale it up for visibility
-    model = glm::translate(model, position);
+    model = glm::translate(model, transform.GetPosition());
     model = glm::scale(model, glm::vec3(100.0f, 100.0f, 100.0f));
-    model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+    model = glm::rotate(model, glm::radians(transform.GetRotation().z), glm::vec3(0.0f, 0.0f, 1.0f));
     shader.setMat4("model", model);
 
     glDrawArrays(GL_TRIANGLES, 0, 36);

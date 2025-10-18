@@ -3,10 +3,12 @@
 #include <core/GameObject.hpp>
 #include <components/Transform.hpp>
 #include <components/SpriteRenderer.hpp>
+#include <components/Script.hpp>
+#include <core/InputManager.hpp>
 
 class Player : public GameObject {
 public:
-    Player();
+    Player(InputManager& inputManager);
     ~Player();
 
     void Update(float deltaTime) override;

@@ -1,7 +1,8 @@
 #include <gameobjects/Box.hpp>
 
 Box::Box() {
-    AddComponent(new SpriteRenderer(glm::vec3(700.0f, 360.0f, 0.0f), glm::vec3(1.0f), 0.0f));
+    AddComponent(new Transform());
+    AddComponent(new SpriteRenderer(static_cast<Transform&>(*components[0])));
 }
 
 Box::~Box() {

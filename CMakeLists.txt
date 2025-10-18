@@ -26,8 +26,10 @@ add_executable(${PROJECT_NAME}
     src/core/Component.cpp
     src/core/GameObject.cpp
     src/core/Scene.cpp
+    src/core/InputManager.cpp
     src/components/Transform.cpp
     src/components/SpriteRenderer.cpp
+    src/components/Script.cpp
     src/gameobjects/Player.cpp
     src/gameobjects/Box.cpp
     src/scenes/TestScene.cpp

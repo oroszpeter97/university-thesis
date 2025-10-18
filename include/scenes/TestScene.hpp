@@ -4,7 +4,7 @@
 
 class TestScene : public Scene {
 public:
-    TestScene();
+    TestScene(GLFWwindow* window);
     ~TestScene();
 
     void SetUp() override;

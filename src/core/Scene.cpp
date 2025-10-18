@@ -1,7 +1,7 @@
 #include <core/Scene.hpp>
 
-Scene::Scene() {
-    
+Scene::Scene(GLFWwindow* window): inputManager(window) {
+
 }
 
 Scene::~Scene() {

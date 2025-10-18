@@ -12,6 +12,6 @@ public:
 
     virtual void Update(float deltaTime) = 0;
 
-private:
+protected:
     std::vector<Component*> components;
 };

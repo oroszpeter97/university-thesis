@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 class Component {
 public:
     /**
@@ -17,7 +15,4 @@ public:
      * @param deltaTime The time elapsed since the last update.
      */
     virtual void Update(float deltaTime) = 0;
-
-private:
-
 };

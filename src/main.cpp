@@ -13,7 +13,7 @@ int main() {
     GLFWwindow* window = context.getWindow();
     if (!window) return -1;
 
-    Scene *currentScene = new TestScene();
+    Scene *currentScene = new TestScene(window);
 
     double lastFrameTime = glfwGetTime();
 
