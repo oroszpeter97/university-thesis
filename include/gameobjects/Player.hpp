@@ -5,6 +5,7 @@
 #include <components/SpriteRenderer.hpp>
 #include <components/Script.hpp>
 #include <core/InputManager.hpp>
+#include <components/Collider.hpp>
 
 class Player : public GameObject {
 public:

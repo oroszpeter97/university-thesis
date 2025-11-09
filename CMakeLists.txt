@@ -27,9 +27,11 @@ add_executable(${PROJECT_NAME}
     src/core/GameObject.cpp
     src/core/Scene.cpp
     src/core/InputManager.cpp
+    src/core/CollisionManager.cpp
     src/components/Transform.cpp
     src/components/SpriteRenderer.cpp
     src/components/Script.cpp
+    src/components/Collider.cpp
     src/gameobjects/Player.cpp
     src/gameobjects/Box.cpp
     src/scenes/TestScene.cpp
