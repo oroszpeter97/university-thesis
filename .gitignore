@@ -3,6 +3,8 @@
 
 ### bin ###
 bin/
+build/
+out/
 
 ### C++ ###
 # Prerequisites
@@ -82,5 +84,24 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+### LaTeX ###
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.fls
+*.out
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+dissertation-blx.bib
+thesis.run.xml
+thesis-blx.bib
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,c++,windows

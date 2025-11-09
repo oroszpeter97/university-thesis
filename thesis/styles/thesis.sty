@@ -1,0 +1,81 @@
+% Required packages and settings for the thesis document class
+
+\usepackage{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\frenchspacing
+
+% Sizes: margin, page, header and footer etc. DO NOT MODIFY!
+\usepackage[a4paper,headheight=15.2pt,headsep=7.1mm,%
+margin=25mm,bindingoffset=5mm]{geometry}
+
+% Overflow errors are indicated in the print preview with a thick, saturated rectangle
+\overfullrule=10pt
+
+% Header and footer
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\fancyhead[C]{\slshape\nouppercase\rightmark}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[R]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% Mathematics
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathtools}
+
+% Custom theorem-like environments
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+% Tables
+\usepackage{array,multirow}
+\renewcommand{\arraystretch}{1.3}  % Default: 1. Increase row spacing
+\setlength{\arrayrulewidth}{0.6pt} % Default: 0.6pt. Set line thickness
+
+% Colors
+\usepackage[table]{xcolor}
+
+% Figures
+\usepackage{graphicx}
+
+% Floating objects
+\usepackage{float}
+% Figure captions below figures
+\floatstyle{plain}
+\restylefloat{figure}
+% Table captions above tables
+\floatstyle{plaintop}
+\restylefloat{table}
+
+% For writing pseudocode
+% \usepackage{algpseudocode}
+% \usepackage{algorithm}
+% \floatname{algorithm}{Algorithm}
+% \renewcommand{\listalgorithname}{List of Algorithms}
+
+% Control structures
+\usepackage{ifthen}
+
+% biblatex
+% For biber compilation, change the backend to biber
+\usepackage[style=numeric,%
+backend=bibtex,sorting=nyt]{biblatex}
+\addbibresource{thesis.bib}
+\usepackage{csquotes}
+
+% For including program code
+\usepackage{listings}
+\renewcommand{\lstlistingname}{ProgramCode}
+\usepackage{styles/cpp}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
