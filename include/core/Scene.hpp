@@ -14,14 +14,19 @@ public:
     ~Scene();
 
     void AddGameObject(GameObject* gameObject);
-    void UpdateGameObjects(float deltaTime);
+    virtual void UpdateGameObjects(float deltaTime);
 
     virtual void SetUp() = 0;
 
 private:
-    std::vector<GameObject*> gameObjects;
+    GLFWwindow* window;
     CollisionManager collisionManager;
 
 protected:
     InputManager inputManager;
+    std::vector<GameObject*> gameObjects;
+    glm::vec3 viewPosition;
+
+    glm::vec3 getViewPosition() const { return viewPosition; }
+    void setViewPosition(const glm::vec3& newViewPosition) { viewPosition = newViewPosition; }
 };

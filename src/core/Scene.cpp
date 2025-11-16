@@ -1,6 +1,7 @@
 #include <core/Scene.hpp>
 
-Scene::Scene(GLFWwindow* window): inputManager(window) {
+Scene::Scene(GLFWwindow* window): inputManager(window), viewPosition(0.0f, 0.0f, -20.0f) {
+    this->window = window;
 
 }
 

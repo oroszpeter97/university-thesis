@@ -35,6 +35,7 @@ add_executable(${PROJECT_NAME}
     src/gameobjects/Player.cpp
     src/gameobjects/Box.cpp
     src/gameobjects/Box2.cpp
+    src/gameobjects/Map.cpp
     src/scenes/TestScene.cpp
     src/external/glad.c
     src/external/stb_image.cpp

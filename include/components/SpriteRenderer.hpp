@@ -11,14 +11,16 @@
 
 class SpriteRenderer : public Component {
 public:
-    SpriteRenderer(Transform& transform);
+    SpriteRenderer(Transform& transform, const char* texturePath = "resources/textures/container.jpg");
     ~SpriteRenderer();
 
     void Update(float deltaTime) override;
+    void UpdateViewPosition(const glm::vec3& newViewPosition) { viewPosition = newViewPosition; }
 
 private:
     unsigned int texture1;
     Shader shader;
     unsigned int VAO;
     Transform& transform;
+    glm::vec3 viewPosition;
 };

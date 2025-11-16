@@ -8,6 +8,7 @@ public:
     ~TestScene();
 
     void SetUp() override;
+    void UpdateGameObjects(float deltaTime) override;
 
 private:
     

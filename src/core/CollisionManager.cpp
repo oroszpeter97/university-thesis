@@ -44,16 +44,16 @@ void CollisionManager::CheckCollisions(std::vector<GameObject*>& gameObjects, fl
             bool collisionY = posA.y + sizeA.y >= posB.y && posB.y + sizeB.y >= posA.y;
 
             if (collisionX && collisionY) {
-                std::cout << "Collision detected at time " << time
+                /*std::cout << "Collision detected at time " << time
                           << " between GameObject at " << gameObjects[i]->GetClassName()
-                          << " and GameObject " << gameObjects[j]->GetClassName() << std::endl;
+                          << " and GameObject " << gameObjects[j]->GetClassName() << std::endl;*/
 
                 float overlapX = std::min(posA.x + sizeA.x, posB.x + sizeB.x) - std::max(posA.x, posB.x);
                 float overlapY = std::min(posA.y + sizeA.y, posB.y + sizeB.y) - std::max(posA.y, posB.y);
 
                 bool staticA = colliderA->IsStatic();
                 bool staticB = colliderB->IsStatic();
-                std::cout << "Static A: " << staticA << ", Static B: " << staticB << std::endl;
+                //std::cout << "Static A: " << staticA << ", Static B: " << staticB << std::endl;
 
                 if (overlapX < overlapY) {
                     if (posA.x < posB.x) {

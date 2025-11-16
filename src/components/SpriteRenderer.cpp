@@ -2,7 +2,7 @@
 
 #include <core/Shader.hpp>
 
-SpriteRenderer::SpriteRenderer(Transform& transform) : shader("../shaders/default_vertex_shader.glsl", "../shaders/default_fragment_shader.glsl"), transform(transform) {
+SpriteRenderer::SpriteRenderer(Transform& transform, const char* texturePath) : shader("../shaders/default_vertex_shader.glsl", "../shaders/default_fragment_shader.glsl"), transform(transform), viewPosition(glm::vec3(0.0f, 0.0f, -20.0f)) {
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -69,21 +69,41 @@ SpriteRenderer::SpriteRenderer(Transform& transform) : shader("../shaders/defaul
     // set the texture wrapping parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load image, create texture and generate mipmaps
+    // set texture filtering parameters (pixel-art: nearest, no mipmaps)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    // load image, create texture (no mipmaps for crisp pixel art)
     int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char *data = stbi_load("../resources/textures/container.jpg", &width, &height, &nrChannels, 0);
+    // Do not flip; keep original orientation to match your UVs
+    stbi_set_flip_vertically_on_load(false); // was true
+    unsigned char *data = stbi_load(texturePath, &width, &height, &nrChannels, 0);
     if (data)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
+        GLenum format = GL_RGB;
+        if (nrChannels == 1) {
+            format = GL_RED;
+        } else if (nrChannels == 3) {
+            format = GL_RGB;
+        } else if (nrChannels == 4) {
+            format = GL_RGBA;
+        }
+
+        glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            format,          // internal format matches channels
+            width,
+            height,
+            0,
+            format,          // data format matches channels
+            GL_UNSIGNED_BYTE,
+            data
+        );
+        // no mipmaps for pixel art
     }
     else
     {
-        std::cout << "Failed to load texture" << std::endl;
+        std::cout << "Failed to load texture: " << texturePath << std::endl;
     }
     stbi_image_free(data);
 
@@ -94,6 +114,10 @@ SpriteRenderer::SpriteRenderer(Transform& transform) : shader("../shaders/defaul
 SpriteRenderer::~SpriteRenderer() {}
 
 void SpriteRenderer::Update(float deltaTime) {
+    // enable alpha blending so transparent pixels show correctly
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture1);
     shader.use();
@@ -103,7 +127,7 @@ void SpriteRenderer::Update(float deltaTime) {
     glm::mat4 projection    = glm::mat4(1.0f);
     // Switch to orthographic projection
     projection = glm::ortho(0.0f, 1280.0f, 0.0f, 720.0f, -1.0f, 100.0f);
-    view       = glm::translate(view, glm::vec3(0.0f, 0.0f, -20.0f));
+    view       = glm::translate(view, viewPosition);
     // pass transformation matrices to the shader
     shader.setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
     shader.setMat4("view", view);
@@ -112,8 +136,9 @@ void SpriteRenderer::Update(float deltaTime) {
     glBindVertexArray(VAO);
     glm::mat4 model = glm::mat4(1.0f);
     // Center the model and scale it up for visibility
-    model = glm::translate(model, transform.GetPosition());
-    model = glm::scale(model, glm::vec3(100.0f, 100.0f, 100.0f));
+    glm::vec3 centerOffset(640.0f, 360.0f, 0.0f);
+    model = glm::translate(model, transform.GetPosition() + centerOffset);
+    model = glm::scale(model, transform.GetScale() * 32.0f);
     model = glm::rotate(model, glm::radians(transform.GetRotation().z), glm::vec3(0.0f, 0.0f, 1.0f));
     shader.setMat4("model", model);
 
