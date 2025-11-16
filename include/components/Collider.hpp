@@ -15,8 +15,11 @@ public:
     glm::vec2 GetSize() const { return size; }
     void SetPosition(const glm::vec2& newPosition) { position = newPosition; }
     void SetSize(const glm::vec2& newSize) { size = newSize; }
+    void SetStatic(bool isStaticCollider) { isStatic = isStaticCollider; }
+    bool IsStatic() const { return isStatic; }
 
 private:
     glm::vec2 position;
     glm::vec2 size;
+    bool isStatic = false;
 };

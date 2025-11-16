@@ -1,9 +1,8 @@
-#include <gameobjects/Player.hpp>
+#include <gameobjects/Box2.hpp>
 
-Player::Player(InputManager& inputManager) : GameObject() {
+Box2::Box2() {
     AddComponent(new Transform());
     AddComponent(new SpriteRenderer(static_cast<Transform&>(*components[0])));
-    AddComponent(new Script(static_cast<Transform&>(*components[0]), inputManager));
     AddComponent(new Collider(glm::vec2(0.0f, 0.0f), glm::vec2(100.0f, 100.0f)));
     Collider* collider = dynamic_cast<Collider*>(components[2]);
     if (collider) {
@@ -11,9 +10,9 @@ Player::Player(InputManager& inputManager) : GameObject() {
     }
 }
 
-Player::~Player() {
+Box2::~Box2() {
 }
 
-void Player::Update(float deltaTime) {
+void Box2::Update(float deltaTime) {
     UpdateComponents(deltaTime);
 }

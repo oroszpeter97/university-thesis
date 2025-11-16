@@ -7,6 +7,8 @@
 
 class GameObject {
 public:
+    std::vector<Component*> components;
+
     GameObject();
     ~GameObject();
     void UpdateComponents(float deltaTime);
@@ -17,7 +19,5 @@ public:
     }
 
     virtual void Update(float deltaTime) = 0;
-
-protected:
-    std::vector<Component*> components;
+    
 };
