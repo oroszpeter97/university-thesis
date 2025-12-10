@@ -25,8 +25,4 @@ private:
 protected:
     InputManager inputManager;
     std::vector<GameObject*> gameObjects;
-    glm::vec3 viewPosition;
-
-    glm::vec3 getViewPosition() const { return viewPosition; }
-    void setViewPosition(const glm::vec3& newViewPosition) { viewPosition = newViewPosition; }
 };

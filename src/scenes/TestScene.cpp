@@ -6,6 +6,8 @@
 #include <components/Transform.hpp>
 #include <components/SpriteRenderer.hpp>
 #include <gameobjects/Map.hpp>
+#include <gameobjects/Camera.hpp>
+#include <gameobjects/MapCollider.hpp>
 
 #include <vector>
 
@@ -65,30 +67,63 @@ void TestScene::SetUp() {
         box2Transform->SetPosition(glm::vec3(800.0f, 360.0f, 0.0f));
     }
     AddGameObject(box2);
+
+    // Camera
+    Camera* camera = new Camera(45.0f, 1280.0f / 720.0f, 0.1f, 100.0f, player, true);
+    AddGameObject(camera);
+
+    // Map Colliders 
+    std::vector<MapCollider*> mapColliders;
+    mapColliders.push_back(new MapCollider());
+    for (int i = 0; i < mapColliders.size(); ++i) {
+        Transform* transformComp = nullptr;
+        Collider* colliderComp = nullptr;
+        for (auto* comp : mapColliders[i]->components) {
+            if (!transformComp) {
+                transformComp = dynamic_cast<Transform*>(comp);
+                if (transformComp) continue;
+            }
+            if (!colliderComp) {
+                colliderComp = dynamic_cast<Collider*>(comp);
+                if (colliderComp) continue;
+            }
+        }
+
+        if (transformComp && colliderComp) {
+            switch (i) {
+                case 0:
+                    transformComp->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+                    colliderComp->SetPosition(glm::vec2(0.0f, -24.0f));
+                    colliderComp->SetSize(glm::vec2(576.0f, 320.0f));
+                    break;
+                default:
+                    break;;
+            }
+        }
+        AddGameObject(mapColliders[i]);
+    }
 }
 
 void TestScene::UpdateGameObjects(float deltaTime) {
     Scene::UpdateGameObjects(deltaTime);
 
-    Player* player = nullptr;
+    // Collect all scene cameras
+    std::vector<Camera*> cameras;
     for (auto& gameObject : gameObjects) {
-        player = dynamic_cast<Player*>(gameObject);
-        if (player) break;
+        Camera* camera = dynamic_cast<Camera*>(gameObject);
+        if (camera) {
+            cameras.push_back(camera);
+        }
     }
 
-    if (player) {
-        Transform* playerTransform = nullptr;
-        for (auto* comp : player->components) {
-            playerTransform = dynamic_cast<Transform*>(comp);
-            if (playerTransform) break;
-        }
-        if (playerTransform) {
-            // Center camera on player (no per-sprite offset)
-            setViewPosition(glm::vec3(
-                -playerTransform->GetPosition().x,
-                -playerTransform->GetPosition().y,
-                -20.0f
-            ));
+    // Get first active camera
+    Camera *activeCamera = nullptr;
+    if (!cameras.empty()) {
+        for (auto& cam : cameras) {
+            if (cam->IsActive()) {
+                activeCamera = cam;
+                break;
+            }
         }
     }
 
@@ -104,6 +139,18 @@ void TestScene::UpdateGameObjects(float deltaTime) {
     }
 
     for (auto& spriteRenderer : spriteRenderers) {
-        spriteRenderer->UpdateViewPosition(getViewPosition());
+        if (activeCamera) {
+            Transform* cameraTransform = nullptr;
+            for (auto* comp : activeCamera->components) {
+                cameraTransform = dynamic_cast<Transform*>(comp);
+                if (cameraTransform) break;
+            }
+            if (cameraTransform) {
+                spriteRenderer->UpdateViewPosition(glm::vec3(-cameraTransform->GetPosition().x, -cameraTransform->GetPosition().y, -20.0f));
+            }
+        }else{
+            // Default view position if no active camera
+            spriteRenderer->UpdateViewPosition(glm::vec3(0.0f, 0.0f, -20.0f));
+        }
     }
 }
