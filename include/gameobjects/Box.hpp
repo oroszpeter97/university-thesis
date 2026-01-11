@@ -7,10 +7,12 @@
 
 class Box : public GameObject {
 public:
-    Box();
+    Box(std::string name, Scene* scene = nullptr);
     ~Box();
 
-    void Update(float deltaTime) override;
+    void OnSetUp() override;
+    void OnUpdate(float deltaTime) override;
 
 private:
+protected:
 };

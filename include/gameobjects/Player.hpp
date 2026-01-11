@@ -3,16 +3,19 @@
 #include <core/GameObject.hpp>
 #include <components/Transform.hpp>
 #include <components/SpriteRenderer.hpp>
-#include <components/Script.hpp>
 #include <core/InputManager.hpp>
 #include <components/Collider.hpp>
+#include <scripts/PlayerScript.hpp>
 
-class Player : public GameObject {
+class Player : public GameObject
+{
 public:
-    Player(InputManager& inputManager);
+    Player(std::string name, Scene* scene, InputManager &inputManager);
     ~Player();
 
-    void Update(float deltaTime) override;
+    void OnSetUp() override;
+    void OnUpdate(float deltaTime) override;
 
 private:
+protected:
 };

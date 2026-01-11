@@ -2,14 +2,15 @@
 
 #include <core/Scene.hpp>
 
-class TestScene : public Scene {
+class TestScene : public Scene
+{
 public:
-    TestScene(GLFWwindow* window);
+    TestScene(GLFWwindow *window);
     ~TestScene();
 
-    void SetUp() override;
-    void UpdateGameObjects(float deltaTime) override;
+    void OnSetUp() override;
+    void OnUpdate(float deltaTime) override;
 
 private:
-    
+protected:
 };

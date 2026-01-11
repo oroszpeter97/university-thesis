@@ -1,13 +1,20 @@
 #include <gameobjects/Map.hpp>
 
-Map::Map() {
+Map::Map(std::string name, Scene* scene) : GameObject(name, scene)
+{
     AddComponent(new Transform());
-    AddComponent(new SpriteRenderer(static_cast<Transform&>(*components[0]), "../resources/CastleMap.png"));
+    AddComponent(new SpriteRenderer(
+        static_cast<Transform &>(*GetComponentsByType("Transform")[0]), GetScene(), "../resources/CastleMap.png"));
 }
 
-Map::~Map() {
+Map::~Map()
+{
 }
 
-void Map::Update(float deltaTime) {
-    UpdateComponents(deltaTime);
+void Map::OnSetUp()
+{
+}
+
+void Map::OnUpdate(float deltaTime)
+{
 }

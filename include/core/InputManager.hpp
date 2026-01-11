@@ -4,12 +4,18 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-class InputManager {
+class InputManager
+{
 public:
-    InputManager(GLFWwindow* window);
+    InputManager(GLFWwindow *window);
+    ~InputManager();
+
     bool IsKeyPressed(int key);
     bool IsMouseButtonPressed(int button);
-    void GetMousePosition(double& xPos, double& yPos);
+    void GetMousePosition(double &xPos, double &yPos);
+
 private:
-    GLFWwindow* window;
+    GLFWwindow *_window;
+
+protected:
 };

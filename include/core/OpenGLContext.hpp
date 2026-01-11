@@ -5,13 +5,17 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-class OpenGLContext {
+class OpenGLContext
+{
 public:
-    OpenGLContext(unsigned int width, unsigned int height, const char* title);
+    OpenGLContext(unsigned int width, unsigned int height, const char *title);
     ~OpenGLContext();
-    GLFWwindow* getWindow() const;
-    void processInput(GLFWwindow *window);
+
+    GLFWwindow *GetWindow() const;
+    void ProcessGlobalInput(GLFWwindow *window);
 
 private:
-    GLFWwindow* window;
+    GLFWwindow *_window;
+
+protected:
 };

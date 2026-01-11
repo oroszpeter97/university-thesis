@@ -6,23 +6,37 @@
 #include <core/GameObject.hpp>
 #include <core/InputManager.hpp>
 #include <core/CollisionManager.hpp>
+#include <gameobjects/Camera.hpp>
 #include <vector>
 
-class Scene {
+class Scene
+{
 public:
-    Scene(GLFWwindow* window);
+    Scene(GLFWwindow *window);
     ~Scene();
 
-    void AddGameObject(GameObject* gameObject);
-    virtual void UpdateGameObjects(float deltaTime);
+    void SetUp();
+    void Update(float deltaTime);
 
-    virtual void SetUp() = 0;
+    void AddGameObject(GameObject *gameObject);
+    Camera *GetActiveCamera();
+    void SetActiveCamera(Camera *camera);
 
 private:
-    GLFWwindow* window;
-    CollisionManager collisionManager;
+    GLFWwindow *_window;
+    std::vector<GameObject *> _gameObjects;
+    InputManager _inputManager;
+    CollisionManager _collisionManager;
+    Camera *_activeCamera = nullptr;
 
 protected:
-    InputManager inputManager;
-    std::vector<GameObject*> gameObjects;
+    virtual void OnSetUp() = 0;
+    virtual void OnUpdate(float deltaTime) = 0;
+
+    GLFWwindow *GetWindow();
+    std::vector<GameObject *> &GetGameObjects();
+    InputManager &GetInputManager();
+    CollisionManager &GetCollisionManager();
+    std::vector<GameObject *> GetGameObjectsByName(const std::string &name);
+    std::vector<GameObject *> GetGameObjectsByType(const std::string &type);
 };

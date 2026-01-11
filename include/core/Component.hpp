@@ -1,18 +1,21 @@
 #pragma once
 
-class Component {
+#include <string>
+
+class Component
+{
 public:
-    /**
-     * @brief Constructs a new Component object.
-     */
     Component();
-    /**
-     * @brief Destroys the Component object.
-     */
     ~Component();
-    /**
-     * @brief Runs every frame to update the Component.
-     * @param deltaTime The time elapsed since the last update.
-     */
-    virtual void Update(float deltaTime) = 0;
+
+    void SetUp();
+    void Update(float deltaTime);
+
+    virtual std::string GetType() const = 0;
+
+private:
+
+protected:
+    virtual void OnSetUp() = 0;
+    virtual void OnUpdate(float deltaTime) = 0;
 };

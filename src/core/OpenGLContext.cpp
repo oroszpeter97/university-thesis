@@ -13,21 +13,20 @@ OpenGLContext::OpenGLContext(unsigned int width, unsigned int height, const char
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(width, height, title, NULL, NULL);
-    if (window == NULL)
+    _window = glfwCreateWindow(width, height, title, NULL, NULL);
+    if (_window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
-        window = nullptr;
+        _window = nullptr;
         return;
     }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+    glfwMakeContextCurrent(_window);
+    glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
-        window = nullptr;
+        _window = nullptr;
         return;
     }
 
@@ -41,17 +40,17 @@ OpenGLContext::OpenGLContext(unsigned int width, unsigned int height, const char
 }
 
 OpenGLContext::~OpenGLContext() {
-    if (window) {
-        glfwDestroyWindow(window);
+    if (_window) {
+        glfwDestroyWindow(_window);
     }
     glfwTerminate();
 }
 
-GLFWwindow* OpenGLContext::getWindow() const {
-    return window;
+GLFWwindow* OpenGLContext::GetWindow() const {
+    return _window;
 }
 
-void OpenGLContext::processInput(GLFWwindow *window)
+void OpenGLContext::ProcessGlobalInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);

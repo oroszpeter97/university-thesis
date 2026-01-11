@@ -5,19 +5,33 @@
 #include <typeinfo>
 #include <string>
 
-class GameObject {
+class Scene;
+
+class GameObject
+{
 public:
-    std::vector<Component*> components;
-
     GameObject();
+    GameObject(const std::string &name, Scene* scene);
     ~GameObject();
-    void UpdateComponents(float deltaTime);
-    void AddComponent(Component* component);
-    std::vector<Component*>& GetComponents() { return components; }
-    virtual std::string GetClassName() const {
-        return typeid(*this).name();
-    }
 
-    virtual void Update(float deltaTime) = 0;
-    
+    void SetUp();
+    void Update(float deltaTime);
+
+    void AddComponent(Component *component);
+    Scene* GetScene() const;
+    void SetScene(Scene* scene);
+    std::string GetName() const;
+    std::string GetClassName() const;
+    void SetName(const std::string &name);
+    std::vector<Component *> &GetComponents();
+    std::vector<Component *> GetComponentsByType(const std::string &type);
+
+private:
+    std::vector<Component *> _components;
+    std::string _name;
+    Scene* _scene;
+
+protected:
+    virtual void OnSetUp() = 0;
+    virtual void OnUpdate(float deltaTime) = 0;
 };

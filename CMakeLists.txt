@@ -19,6 +19,7 @@ include_directories(include/core)
 include_directories(include/components)
 include_directories(include/gameobjects)
 include_directories(include/scenes)
+include_directories(include/scripts)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
@@ -30,15 +31,13 @@ add_executable(${PROJECT_NAME}
     src/core/CollisionManager.cpp
     src/components/Transform.cpp
     src/components/SpriteRenderer.cpp
-    src/components/Script.cpp
     src/components/Collider.cpp
     src/gameobjects/Player.cpp
     src/gameobjects/Box.cpp
-    src/gameobjects/Box2.cpp
     src/gameobjects/Map.cpp
     src/gameobjects/Camera.cpp
-    src/gameobjects/MapCollider.cpp
     src/scenes/TestScene.cpp
+    src/scripts/PlayerScript.cpp
     src/external/glad.c
     src/external/stb_image.cpp
 )

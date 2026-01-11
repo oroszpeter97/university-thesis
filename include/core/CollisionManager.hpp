@@ -6,13 +6,17 @@
 #include <components/Transform.hpp>
 #include <iostream>
 
-class CollisionManager { 
+class CollisionManager
+{
 public:
     CollisionManager();
     ~CollisionManager();
 
-    void CheckCollisions(std::vector<class GameObject*>& gameObjects, float deltaTime);
+    void SetUp();
+    void Update(std::vector<class GameObject *> &gameObjects, float deltaTime);
 
 private:
-    float time = 0.0f;
+    float _time = 0.0f;
+
+protected:
 };

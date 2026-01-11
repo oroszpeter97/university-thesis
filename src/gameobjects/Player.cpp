@@ -1,24 +1,27 @@
 #include <gameobjects/Player.hpp>
 
-Player::Player(InputManager& inputManager) : GameObject() {
+Player::Player(std::string name, Scene* scene, InputManager &inputManager) : GameObject(name, scene)
+{
     AddComponent(new Transform());
-    AddComponent(new SpriteRenderer(static_cast<Transform&>(*components[0]), "../resources/Player.png"));
-    AddComponent(new Script(static_cast<Transform&>(*components[0]), inputManager));
+    Transform *transform = dynamic_cast<Transform *>(GetComponentsByType("Transform")[0]);
+    AddComponent(new SpriteRenderer(*transform, GetScene(), "../resources/Player.png"));
+    AddComponent(new PlayerScript(*transform, inputManager));
     AddComponent(new Collider(glm::vec2(0.0f, 0.0f), glm::vec2(32.0f, 32.0f)));
-    Collider* collider = dynamic_cast<Collider*>(components[2]);
-    if (collider) {
+    Collider *collider = dynamic_cast<Collider *>(GetComponentsByType("Collider")[0]);
+    if (collider)
+    {
         collider->SetStatic(true);
     }
 }
 
-Player::~Player() {
+Player::~Player()
+{
 }
 
-void Player::Update(float deltaTime) {
-    SpriteRenderer* spriteRenderer = dynamic_cast<SpriteRenderer*>(components[1]);
-    Transform* transform = dynamic_cast<Transform*>(components[0]);
-    if (spriteRenderer && transform) {
-        spriteRenderer->UpdateViewPosition(glm::vec3(-transform->GetPosition().x, -transform->GetPosition().y, -20.0f));
-    }
-    UpdateComponents(deltaTime);
+void Player::OnSetUp()
+{
+}
+
+void Player::OnUpdate(float deltaTime)
+{
 }

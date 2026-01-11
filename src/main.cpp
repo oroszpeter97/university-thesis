@@ -12,10 +12,11 @@ const unsigned int SCR_HEIGHT = 720;
 
 int main() {
     OpenGLContext context(SCR_WIDTH, SCR_HEIGHT, "University Thesis");
-    GLFWwindow* window = context.getWindow();
+    GLFWwindow* window = context.GetWindow();
     if (!window) return -1;
 
     Scene *currentScene = new TestScene(window);
+    currentScene->SetUp();
 
     double lastFrameTime = glfwGetTime();
 
@@ -32,9 +33,9 @@ int main() {
         glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-        context.processInput(window);
+        context.ProcessGlobalInput(window);
 
-        currentScene->UpdateGameObjects(deltaTime);
+        currentScene->Update(deltaTime);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

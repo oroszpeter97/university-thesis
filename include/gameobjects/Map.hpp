@@ -4,12 +4,15 @@
 #include <components/Transform.hpp>
 #include <components/SpriteRenderer.hpp>
 
-class Map : public GameObject {
+class Map : public GameObject
+{
 public:
-    Map();
+    Map(std::string name, Scene* scene);
     ~Map();
 
-    void Update(float deltaTime) override;
+    void OnSetUp() override;
+    void OnUpdate(float deltaTime) override;
 
 private:
+protected:
 };

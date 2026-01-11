@@ -1,16 +1,24 @@
 #include <core/InputManager.hpp>
 
-InputManager::InputManager(GLFWwindow* window) : window(window) {
+InputManager::InputManager(GLFWwindow *window) : _window(window)
+{
 }
 
-bool InputManager::IsKeyPressed(int key) {
-    return glfwGetKey(window, key) == GLFW_PRESS;
+InputManager::~InputManager()
+{
 }
 
-bool InputManager::IsMouseButtonPressed(int button) {
-    return glfwGetMouseButton(window, button) == GLFW_PRESS;
+bool InputManager::IsKeyPressed(int key)
+{
+    return glfwGetKey(_window, key) == GLFW_PRESS;
 }
 
-void InputManager::GetMousePosition(double& xPos, double& yPos) {
-    glfwGetCursorPos(window, &xPos, &yPos);
+bool InputManager::IsMouseButtonPressed(int button)
+{
+    return glfwGetMouseButton(_window, button) == GLFW_PRESS;
+}
+
+void InputManager::GetMousePosition(double &xPos, double &yPos)
+{
+    glfwGetCursorPos(_window, &xPos, &yPos);
 }
