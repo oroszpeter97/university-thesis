@@ -15,7 +15,6 @@ find_package(OpenGL REQUIRED)
 include_directories(include)
 include_directories(include/glad)
 include_directories(include/KHR)
-include_directories(include/tools)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
