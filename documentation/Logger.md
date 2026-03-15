@@ -2,11 +2,10 @@
 
 ## Overview
 
-The `Logger` class provides a simple and thread-safe logging utility for C++ projects. It supports logging messages to both the console and a file, with log levels and colored console output for better readability.
+The `Logger` class provides a simple logging utility for C++ projects. It supports logging messages to both the console and a file, with log levels and colored console output for better readability.
 
 ## Features
-- Singleton pattern for global access
-- Thread-safe logging
+- Singleton pattern for global access (thread-safe initialization)
 - Log levels: DEBUG, INFO, WARNING, ERROR
 - Console output with color-coded log levels
 - Optional file logging with automatic directory creation
@@ -50,7 +49,7 @@ Console output will be color-coded according to the log level.
 - You can modify the logger's behavior by changing the relevant member variables in the `Logger` class.
 
 ## Thread Safety
-The logger uses a mutex to ensure thread-safe access when logging from multiple threads.
+The logger uses a mutex to ensure thread-safe initialization of the singleton instance. Logging operations themselves are not internally synchronized, so if you call `Log()` from multiple threads, you must provide your own external synchronization (for example, by guarding all logging calls with a mutex in your application).
 
 ## Extending
 You can extend the logger to support additional log levels, output formats, or destinations as needed.
