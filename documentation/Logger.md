@@ -49,7 +49,7 @@ Console output will be color-coded according to the log level.
 - You can modify the logger's behavior by changing the relevant member variables in the `Logger` class.
 
 ## Thread Safety
-The logger uses a mutex to ensure thread-safe initialization of the singleton instance. Logging operations themselves are not internally synchronized, so if you call `Log()` from multiple threads, you must provide your own external synchronization (for example, by guarding all logging calls with a mutex in your application).
+The logger uses an internal mutex to ensure both thread-safe initialization of the singleton instance and synchronized logging operations. Calls to `Log()` can safely be made from multiple threads without additional external synchronization for the logging itself; however, you should still synchronize any other shared state that your application modifies in conjunction with logging.
 
 ## Extending
 You can extend the logger to support additional log levels, output formats, or destinations as needed.
