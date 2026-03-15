@@ -12,11 +12,11 @@ The `Logger` class provides a simple logging utility for C++ projects. It suppor
 
 ## Log Levels and Colors
 | Level   | Console Color |
-|---------|--------------|
-| DEBUG   | Cyan         |
-| INFO    | Green        |
-| WARNING | Yellow       |
-| ERROR   | Red          |
+|---------|---------------|
+| DEBUG   | Cyan          |
+| INFO    | Green         |
+| WARNING | Yellow        |
+| ERROR   | Red           |
 
 ## Usage
 

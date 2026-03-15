@@ -3,11 +3,18 @@
 std::unique_ptr<Logger> Logger::_instance = nullptr;
 std::mutex Logger::_instanceMutex;
 
+namespace
+{
+	std::mutex logMutex;
+}
+
 Logger::Logger()
 {
 	if (_logFileTarget)
 	{
-		std::filesystem::create_directories(_logFileDirectory);
+		std::filesystem::path logDir(_logFileDirectory);
+ 		std::error_code ec;
+ 		std::filesystem::create_directories(logDir, ec);
 		
 		std::time_t t = std::time(nullptr);
 		std::tm tm;
@@ -18,7 +25,9 @@ Logger::Logger()
 #endif
 		char buf[32];
 		std::strftime(buf, sizeof(buf), "%Y-%m-%d-%H-%M-%S", &tm);
-		_logFilePath = _logFileDirectory + "/log" + buf + ".log";
+		std::string logFileName = std::string("log") + buf + ".log";
+ 		std::filesystem::path logFilePath = logDir / logFileName;
+ 		_logFilePath = logFilePath.string();
 	}
 }
 
@@ -39,6 +48,13 @@ Logger &Logger::GetInstance()
 
 void Logger::Log(const std::string &message, LogLevel level)
 {
+	std::lock_guard<std::mutex> lock(logMutex);
+
+	if (level < _logLevel)
+	{
+		return;
+	}
+
 	if (_logConsoleTarget)
 	{
 		LogToConsole(message, level);
