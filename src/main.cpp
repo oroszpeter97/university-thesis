@@ -2,9 +2,11 @@
 
 int main()
 {
-    Logger::GetInstance().Log("Application started", LogLevel::DEBUG);
-    Logger::GetInstance().Log("This is an info message", LogLevel::INFO);
-    Logger::GetInstance().Log("This is a warning message", LogLevel::WARNING);
-    Logger::GetInstance().Log("This is an error message", LogLevel::ERROR);
+    Logger& logger = Logger::GetInstance();
+
+    logger.Log("Application started", LogLevel::DEBUG);
+    logger.Log("This is an info message", LogLevel::INFO);
+    logger.Log("This is a warning message", LogLevel::WARNING);
+    logger.Log("This is an error message", LogLevel::ERROR);
     return 0;
 }

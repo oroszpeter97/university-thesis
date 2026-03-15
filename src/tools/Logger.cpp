@@ -1,4 +1,8 @@
 #include "tools/Logger.hpp"
+#include <iostream>
+#include <filesystem>
+#include <fstream>		
+#include <ctime>
 
 std::unique_ptr<Logger> Logger::_instance = nullptr;
 std::mutex Logger::_instanceMutex;
@@ -15,6 +19,12 @@ Logger::Logger()
 		std::filesystem::path logDir(_logFileDirectory);
  		std::error_code ec;
  		std::filesystem::create_directories(logDir, ec);
+		if (ec)
+ 		{
+ 			_logFileTarget = false;
+ 			_logFilePath.clear();
+ 			return;
+ 		}
 		
 		std::time_t t = std::time(nullptr);
 		std::tm tm;
@@ -38,12 +48,8 @@ Logger::~Logger()
 
 Logger &Logger::GetInstance()
 {
-	std::lock_guard<std::mutex> lock(_instanceMutex);
-	if (!_instance)
-	{
-		_instance.reset(new Logger());
-	}
-	return *_instance;
+	static Logger instance;
+ 	return instance;
 }
 
 void Logger::Log(const std::string &message, LogLevel level)
@@ -89,8 +95,12 @@ void Logger::LogToConsole(const std::string &message, LogLevel level)
 		levelStr = "ERROR";
 		colorCode = "\033[31m"; // Red
 		break;
-	}
-	std::cout << colorCode << "[" << levelStr << "] " << message << resetCode << std::endl;
+	default:
+ 		levelStr = "UNKNOWN";
+ 		colorCode = resetCode;
+ 		break;
+ 	}
+	std::cout << colorCode << "[" << levelStr << "] " << message << resetCode << '\n';
 }
 
 void Logger::LogToFile(const std::string &message, LogLevel level)
@@ -115,6 +125,9 @@ void Logger::LogToFile(const std::string &message, LogLevel level)
 	case LogLevel::ERROR:
 		levelStr = "ERROR";
 		break;
+	default:
+ 		levelStr = "UNKNOWN";
+ 		break;
 	}
-	file << "[" << levelStr << "] " << message << std::endl;
+	file << "[" << levelStr << "] " << message << '\n';
 }
