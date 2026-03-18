@@ -49,7 +49,7 @@ Console output will be color-coded according to the log level.
 - You can modify the logger's behavior by changing the relevant member variables in the `Logger` class.
 
 ## Thread Safety
-The logger uses an internal mutex to ensure both thread-safe initialization of the singleton instance and synchronized logging operations. Calls to `Log()` can safely be made from multiple threads without additional external synchronization for the logging itself; however, you should still synchronize any other shared state that your application modifies in conjunction with logging.
+The logger's singleton instance is created using a function-local static in `Logger::GetInstance()`. Since C++11, initialization of function-local statics is guaranteed by the language to be thread-safe, so no separate mutex is required for constructing the singleton. Calls to `Log()` are designed to be safe to use from multiple threads without additional external synchronization for the logging itself; however, you should still synchronize any other shared state that your application modifies in conjunction with logging.
 
 ## Extending
 You can extend the logger to support additional log levels, output formats, or destinations as needed.
