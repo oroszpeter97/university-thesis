@@ -1,5 +1,7 @@
 #include <tools/Logger.hpp>
 #include <core/OpenGLContext.hpp>
+#include <exception>
+#include <string>
 
 int main()
 {
