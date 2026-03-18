@@ -18,6 +18,7 @@ include_directories(include/KHR)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
+    src/tools/Logger.cpp
     src/external/glad.c
     src/external/stb_image.cpp
 )
