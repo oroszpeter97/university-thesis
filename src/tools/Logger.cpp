@@ -80,24 +80,40 @@ void Logger::LogToConsole(const std::string &message, LogLevel level)
 {
 	std::string levelStr;
 	std::string colorCode;
-	std::string resetCode = "\033[0m";
+	std::string resetCode;
+
+#ifdef _WIN32
+	// Disable ANSI color codes on Windows by default to avoid raw escape sequences
+	resetCode.clear();
+#else
+	resetCode = "\033[0m";
+#endif
+
 	switch (level)
 	{
 	case LogLevel::DEBUG:
 		levelStr = "DEBUG";
+#ifndef _WIN32
 		colorCode = "\033[36m"; // Cyan
+#endif
 		break;
 	case LogLevel::INFO:
 		levelStr = "INFO";
+#ifndef _WIN32
 		colorCode = "\033[32m"; // Green
+#endif
 		break;
 	case LogLevel::WARNING:
 		levelStr = "WARNING";
+#ifndef _WIN32
 		colorCode = "\033[33m"; // Yellow
+#endif
 		break;
 	case LogLevel::ERROR:
 		levelStr = "ERROR";
+#ifndef _WIN32
 		colorCode = "\033[31m"; // Red
+#endif
 		break;
 	default:
  		levelStr = "UNKNOWN";
