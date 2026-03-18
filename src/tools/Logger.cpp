@@ -24,12 +24,19 @@ Logger::Logger()
  		}
 		
 		std::time_t t = std::time(nullptr);
-		std::tm tm;
+		std::tm tm{};
+		bool timeOk = true;
 #ifdef _WIN32
-		localtime_s(&tm, &t);
+		timeOk = (localtime_s(&tm, &t) == 0);
 #else
-		localtime_r(&t, &tm);
+		timeOk = (localtime_r(&t, &tm) != nullptr);
 #endif
+		if (!timeOk)
+		{
+			_logFileTarget = false;
+			_logFilePath.clear();
+			return;
+		}
 		char buf[32];
 		std::strftime(buf, sizeof(buf), "%Y-%m-%d-%H-%M-%S", &tm);
 		std::string logFileName = std::string("log") + buf + ".log";
