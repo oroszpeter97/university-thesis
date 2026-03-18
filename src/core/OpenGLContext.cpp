@@ -3,7 +3,11 @@
 
 OpenGLContext::OpenGLContext(unsigned int width, unsigned int height, const char* title) : _logger(Logger::GetInstance()) {
     _logger.Log("Initializing OpenGL context", LogLevel::INFO);
-    glfwInit();
+    if (!glfwInit())
+    {
+        _logger.Log("Failed to initialize GLFW", LogLevel::ERROR);
+        throw std::runtime_error("Failed to initialize GLFW");
+    }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
