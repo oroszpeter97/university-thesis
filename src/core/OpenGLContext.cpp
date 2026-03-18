@@ -12,8 +12,8 @@ OpenGLContext::OpenGLContext(unsigned int width, unsigned int height, const char
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    _window = glfwCreateWindow(width, height, title, NULL, NULL);
-    if (_window == NULL)
+    _window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+    if (_window == nullptr)
     {
         _logger.Log("Failed to create GLFW window", LogLevel::ERROR);
         glfwTerminate();
