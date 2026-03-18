@@ -4,9 +4,6 @@
 #include <fstream>		
 #include <ctime>
 
-std::unique_ptr<Logger> Logger::_instance = nullptr;
-std::mutex Logger::_instanceMutex;
-
 namespace
 {
 	std::mutex logMutex;
