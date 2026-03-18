@@ -1,7 +1,6 @@
 #include <tools/Logger.hpp>
 #include <core/OpenGLContext.hpp>
 #include <exception>
-#include <string>
 
 int main()
 {
@@ -22,7 +21,7 @@ int main()
     }
     catch (const std::exception& e) 
     {
-        logger.Log(std::string("Exception: ") + e.what(), LogLevel::ERROR);
+        logger.Log(e.what(), LogLevel::ERROR);
         return -1;
     }
     

@@ -1,5 +1,6 @@
 #include <core/OpenGLContext.hpp>
 #include <stdexcept>
+#include <stb_image.h>
 
 OpenGLContext::OpenGLContext(unsigned int width, unsigned int height, const char* title) : _logger(Logger::GetInstance()) {
     _logger.Log("Initializing OpenGL context", LogLevel::INFO);
