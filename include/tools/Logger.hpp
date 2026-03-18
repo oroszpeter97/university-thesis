@@ -2,7 +2,7 @@
 
 #include <mutex>
 #include <string>
-#include <memory>
+
 
 enum class LogLevel
 {
@@ -26,8 +26,6 @@ public:
     void Log(const std::string &message, LogLevel level = LogLevel::DEBUG);
 
 private:
-    static std::unique_ptr<Logger> _instance;
-    static std::mutex _instanceMutex;
 
     LogLevel _logLevel = LogLevel::DEBUG;   // Default log level
     bool _logConsoleTarget = true;          // Log to console by default
