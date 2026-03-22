@@ -108,11 +108,11 @@ class InputManager
         static InputManager &GetInstance();
         void SetWindowContext(GLFWwindow* context);
 
-        bool IsKeyPressed(Input::Keys key);
-        bool IsKeyReleased(Input::Keys key);
-        bool IsMouseButtonPressed(Input::MouseButtons button);
-        bool IsMouseButtonReleased(Input::MouseButtons button);
-        MousePosition GetMousePosition();
+        bool IsKeyPressed(Input::Keys key) const;
+        bool IsKeyReleased(Input::Keys key) const;
+        bool IsMouseButtonPressed(Input::MouseButtons button) const;
+        bool IsMouseButtonReleased(Input::MouseButtons button) const;
+        MousePosition GetMousePosition() const;
 
     private:
         static const std::unordered_map<Input::Keys, int> _keyMap;
