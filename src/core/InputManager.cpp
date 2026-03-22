@@ -35,7 +35,7 @@ void InputManager::SetWindowContext(GLFWwindow *context)
     _logger.Log("Window context set", LogLevel::INFO);
 }
 
-bool InputManager::IsKeyPressed(Input::Keys key)
+bool InputManager::IsKeyPressed(Input::Keys key) const
 {
     if (!_windowContext)
         return false;
@@ -48,7 +48,7 @@ bool InputManager::IsKeyPressed(Input::Keys key)
     return glfwGetKey(window, it->second) == GLFW_PRESS;
 }
 
-bool InputManager::IsKeyReleased(Input::Keys key)
+bool InputManager::IsKeyReleased(Input::Keys key) const
 {
     if (!_windowContext)
         return false;
@@ -61,7 +61,7 @@ bool InputManager::IsKeyReleased(Input::Keys key)
     return glfwGetKey(window, it->second) == GLFW_RELEASE;
 }
 
-bool InputManager::IsMouseButtonPressed(Input::MouseButtons button)
+bool InputManager::IsMouseButtonPressed(Input::MouseButtons button) const
 {
     if (!_windowContext)
         return false;
@@ -75,7 +75,7 @@ bool InputManager::IsMouseButtonPressed(Input::MouseButtons button)
     return glfwGetMouseButton(window, it->second) == GLFW_PRESS;
 }
 
-bool InputManager::IsMouseButtonReleased(Input::MouseButtons button)
+bool InputManager::IsMouseButtonReleased(Input::MouseButtons button) const
 {
     if (!_windowContext)
         return false;
@@ -89,7 +89,7 @@ bool InputManager::IsMouseButtonReleased(Input::MouseButtons button)
     return glfwGetMouseButton(window, it->second) == GLFW_RELEASE;
 }
 
-MousePosition InputManager::GetMousePosition()
+MousePosition InputManager::GetMousePosition() const
 {
     MousePosition pos{0.0, 0.0};
     if (!_windowContext)
