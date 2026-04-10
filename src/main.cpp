@@ -21,7 +21,6 @@ int main()
         bool wPressed = false;
         bool sPressed = false;
         bool aPressed = false;
-        bool leftMousePressed = false;
         while (!glfwWindowShouldClose(window))
         {
             if (inputManager.IsKeyPressed(Input::Keys::Escape))

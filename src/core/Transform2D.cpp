@@ -53,3 +53,8 @@ void Transform2D::Rotate(float angle)
 {
     Rotation += angle;
 }
+
+void Transform2D::Move(const Vector2D &delta)
+{
+    Position = Position + delta;
+}

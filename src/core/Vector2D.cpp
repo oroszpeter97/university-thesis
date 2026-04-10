@@ -31,6 +31,8 @@ Vector2D Vector2D::operator*(const Vector2D &other) const
 
 Vector2D Vector2D::operator/(float scalar) const
 {
+    if (scalar == 0)
+        return Vector2D(0, 0);
     return Vector2D(X / scalar, Y / scalar);
 }
 
