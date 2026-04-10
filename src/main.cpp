@@ -1,21 +1,26 @@
 #include <tools/Logger.hpp>
 #include <core/OpenGLContext.hpp>
 #include <core/InputManager.hpp>
+#include <core/Transform2D.hpp>
 #include <exception>
 
 int main()
 {
-    Logger& logger = Logger::GetInstance();
-    InputManager& inputManager = InputManager::GetInstance();
+    Logger &logger = Logger::GetInstance();
 
-    try 
+    try
     {
         OpenGLContext context(800, 600, "University Thesis");
-        GLFWwindow* window = context.GetWindow();
+        GLFWwindow *window = context.GetWindow();
+        InputManager &inputManager = InputManager::GetInstance();
+
         inputManager.SetWindowContext(window);
+        Transform2D transform;
+        Transform2D transform2 = Transform2D(Vector2D(1, 1), 0.0f, Vector2D(1, 1));
 
         bool wPressed = false;
-        bool leftMousePressed = false;
+        bool sPressed = false;
+        bool aPressed = false;
         while (!glfwWindowShouldClose(window))
         {
             if (inputManager.IsKeyPressed(Input::Keys::Escape))
@@ -28,34 +33,54 @@ int main()
             {
                 logger.Log("W key is pressed", LogLevel::DEBUG);
                 wPressed = true;
+
+                logger.Log("Transform forward vector: (" + std::to_string(transform.GetForward().X) + ", " + std::to_string(transform.GetForward().Y) + ")", LogLevel::DEBUG);
             }
             if (inputManager.IsKeyReleased(Input::Keys::W) && wPressed)
             {
                 logger.Log("W key is released", LogLevel::DEBUG);
                 wPressed = false;
             }
-            if (inputManager.IsMouseButtonPressed(Input::MouseButtons::Left) && !leftMousePressed)
+
+            if (inputManager.IsKeyPressed(Input::Keys::S) && !sPressed)
             {
-                MousePosition pos = inputManager.GetMousePosition();
-                logger.Log("Left mouse button pressed at (" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ")", LogLevel::DEBUG);
-                leftMousePressed = true;
+                logger.Log("S key is pressed", LogLevel::DEBUG);
+                sPressed = true;
+
+                transform.Rotation += 45.0f; // Rotate 45 degrees when S is pressed
+                logger.Log("Transform rotated to: " + std::to_string(transform.Rotation) + " degrees", LogLevel::DEBUG);
             }
-            if (inputManager.IsMouseButtonReleased(Input::MouseButtons::Left) && leftMousePressed)
+
+            if (inputManager.IsKeyReleased(Input::Keys::S) && sPressed)
             {
-                MousePosition pos = inputManager.GetMousePosition();
-                logger.Log("Left mouse button released at (" + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ")", LogLevel::DEBUG);
-                leftMousePressed = false;
+                logger.Log("S key is released", LogLevel::DEBUG);
+                sPressed = false;
+            }
+
+            if (inputManager.IsKeyPressed(Input::Keys::A) && !aPressed)
+            {
+                logger.Log("A key is pressed", LogLevel::DEBUG);
+                aPressed = true;
+                
+                transform.LookAt(transform2.Position); // Make transform look at transform2's position
+                logger.Log("Transform rotated to look at transform2: " + std::to_string(transform.Rotation) + " degrees", LogLevel::DEBUG);
+            }
+
+            if (inputManager.IsKeyReleased(Input::Keys::A) && aPressed)
+            {
+                logger.Log("A key is released", LogLevel::DEBUG);
+                aPressed = false;
             }
 
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
     }
-    catch (const std::exception& e) 
+    catch (const std::exception &e)
     {
         logger.Log(e.what(), LogLevel::ERROR);
         return -1;
     }
-    
+
     return 0;
 }

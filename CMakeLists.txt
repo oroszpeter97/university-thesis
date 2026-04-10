@@ -21,6 +21,8 @@ add_executable(${PROJECT_NAME}
     src/tools/Logger.cpp
     src/core/OpenGLContext.cpp
     src/core/InputManager.cpp
+    src/core/Transform2D.cpp
+    src/core/Vector2D.cpp
     src/external/glad.c
     src/external/stb_image.cpp
 )
